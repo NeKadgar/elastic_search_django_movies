@@ -46,7 +46,7 @@ class Genre(models.Model):
     name = models.CharField(max_length=50, null=False, unique=True)
 
     def __str__(self):
-        return self.name
+        return "{}. count of movies: {}".format(self.name, self.movies.count())
 
 
 class ProductionCompany(models.Model):
@@ -54,7 +54,7 @@ class ProductionCompany(models.Model):
     origin_country = models.CharField(max_length=2, choices=CountryCodes.choices, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return "{}. count of movies: {}".format(self.name, self.movies.count())
 
 
 class ProductionCountry(models.Model):
@@ -62,7 +62,7 @@ class ProductionCountry(models.Model):
     name = models.CharField(max_length=50, null=False)
 
     def __str__(self):
-        return self.name
+        return "{}. count of movies: {}".format(self.name, self.movies.count())
 
 
 class MovieLanguage(models.Model):
