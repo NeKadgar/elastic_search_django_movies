@@ -1,0 +1,8 @@
+version: '2.2'
+services:
+  elastic_search:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200

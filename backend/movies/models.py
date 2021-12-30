@@ -51,7 +51,7 @@ class Genre(models.Model):
 
 class ProductionCompany(models.Model):
     name = models.CharField(max_length=50, null=False, unique=True)
-    origin_country = models.CharField(max_length=2, choices=CountryCodes.choices, blank=True, null=True)
+    origin_country = models.CharField(max_length=2, choices=CountryCodes.choices, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -59,15 +59,15 @@ class ProductionCompany(models.Model):
 
 class ProductionCountry(models.Model):
     origin_country = models.CharField(max_length=2, choices=CountryCodes.choices, blank=True, null=True)
-    name = models.CharField(max_length=50, blank=True)
+    name = models.CharField(max_length=50, null=False)
 
     def __str__(self):
         return self.name
 
 
 class MovieLanguage(models.Model):
-    name = models.CharField(max_length=50, blank=True, null=True)
-    origin_country = models.CharField(max_length=2)
+    name = models.CharField(max_length=50, null=False)
+    origin_country = models.CharField(max_length=2, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -98,7 +98,7 @@ class Movie(models.Model):
     poster_image = models.URLField(max_length=200)
     genres = models.ManyToManyField(Genre, related_name="movies")
     production_companies = models.ManyToManyField(ProductionCompany, related_name="movies")
-    production_counties = models.ManyToManyField(ProductionCountry, related_name="movies")
+    production_countries = models.ManyToManyField(ProductionCountry, related_name="movies")
     spoken_languages = models.ManyToManyField(MovieLanguage, related_name="movies")
 
     def __str__(self):

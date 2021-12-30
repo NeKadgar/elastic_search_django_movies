@@ -13,7 +13,7 @@ class GenreSerializer(serializers.ModelSerializer):
 
 
 class ProductionCompanySerializer(serializers.ModelSerializer):
-    origin_country = serializers.CharField(required=False)
+    origin_country = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = ProductionCompany
@@ -24,7 +24,7 @@ class ProductionCompanySerializer(serializers.ModelSerializer):
 
 
 class ProductionCountrySerializer(serializers.ModelSerializer):
-    origin_country = serializers.CharField(required=False)
+    origin_country = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = ProductionCountry
@@ -42,9 +42,8 @@ class MovieLanguageSerializer(serializers.ModelSerializer):
 class MovieSerializer(serializers.ModelSerializer):
     genres = GenreSerializer(many=True)
     production_companies = ProductionCompanySerializer(many=True, required=False)
-    production_counties = ProductionCountrySerializer(many=True, required=False)
+    production_countries = ProductionCountrySerializer(many=True, required=False)
     spoken_languages = MovieLanguageSerializer(many=True, required=False)
-    depth = 99
 
     class Meta:
         model = Movie
@@ -65,7 +64,7 @@ class MovieSerializer(serializers.ModelSerializer):
             movie.production_companies.add(prod_company)
         for prod_country_data in production_counties_data:
             prod_country, _ = ProductionCountry.objects.get_or_create(**prod_country_data)
-            movie.production_counties.add(prod_country)
+            movie.production_countries.add(prod_country)
         for lang_data in spoken_languages_data:
             lang_data, _ = MovieLanguage.objects.get_or_create(**lang_data)
             movie.spoken_languages.add(lang_data)

@@ -23,5 +23,6 @@ router = DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('movies/create/', views.MovieCreateApiView.as_view()),
+    path('search/', include('search.urls')),
     path('', include(router.urls))
 ]
