@@ -19,7 +19,8 @@ class ElasticSearchAPIView(APIView, LimitOffsetPagination):
     def get(self, request, query):
         try:
             q = self.generate_q_expression(query)
-            response = self.document_class.search().query(q).to_queryset()
+            response = self.document_class.search().query(q).to_queryset()\
+                .prefetch_related("production_companies", "production_countries", "spoken_languages", "genres")
 
             results = self.paginate_queryset(response, request, view=self)
             serializer = self.serializer_class(results, many=True)

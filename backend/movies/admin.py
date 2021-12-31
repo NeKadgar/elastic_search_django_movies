@@ -14,7 +14,7 @@ class GenreAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(GenreAdmin, self).get_queryset(request)
-        return qs.annotate(movies_count=Count('movies')).order_by('-movies_count')
+        return qs.prefetch_related("movies").annotate(movies_count=Count('movies')).order_by('-movies_count')
 
 
 class ProductionCompanyAdmin(admin.ModelAdmin):
@@ -22,7 +22,7 @@ class ProductionCompanyAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(ProductionCompanyAdmin, self).get_queryset(request)
-        return qs.annotate(movies_count=Count('movies')).order_by('-movies_count')
+        return qs.prefetch_related("movies").annotate(movies_count=Count('movies')).order_by('-movies_count')
 
 
 class ProductionCountryAdmin(admin.ModelAdmin):
@@ -30,7 +30,7 @@ class ProductionCountryAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(ProductionCountryAdmin, self).get_queryset(request)
-        return qs.annotate(movies_count=Count('movies')).order_by('-movies_count')
+        return qs.prefetch_related("movies").annotate(movies_count=Count('movies')).order_by('-movies_count')
 
 
 admin.site.register(Movie, MovieAdmin)
